@@ -14,7 +14,7 @@ app.on('ready', () => {
     
     });
 
-    home.loadURL(`file://${__dirname}/index.htm`)
+    home.loadURL(`file://${__dirname}/index.html`)
     home.on('closed', () => {
         app.quit();
         home = null;
