@@ -1,0 +1,15 @@
+{
+  "name": "temperature-convert",
+  "version": "1.0.0",
+  "description": "temperature converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "ericcornetto",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^8.2.1"
+  }
+}

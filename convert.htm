@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand" href="#">
+      <img src="temperature.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      Temp Converter
+    </a>
+    <ul class="nav nav-pills" >
+      <li class="nav-item">
+        <a class="nav-link" href="index.htm">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="convert.htm">Convert</a>
+      </li>
+      </ul>
+  </nav>
+
+    <div class="container-fluid">
+
+      <form id="form">
+        <label for="from">From</label>
+        <select class="custom-select" id="from-select">
+          <option selected>Select temperature</option>
+          <option value="celcius">Celcius</option>
+          <option value="reaumur">Reaumur</option>
+          <option value="fahrenheit">Fahrenheit</option>
+        </select>
+        
+        <label for="to">To</label>
+        <select class="custom-select" id="to-select">
+          <option selected>Select temperature</option>
+          <option value="celcius">Celcius</option>
+          <option value="reaumur">Reaumur</option>
+          <option value="fahrenheit">Fahrenheit</option>
+        </select>
+  
+        <label for="temp">From Temperature</label>
+        <input type="number"  class="form-control" id="fromtemp" aria-describedby="fromtempHelp">
+        <small id="fromtempHelp" class="form-text text-muted">Input the Temperatur (Degree)</small>
+        <br>
+
+        <label for="temp">To Temperature</label>
+        <input type="number"  class="form-control" id="totemp" readonly>
+        <br>
+
+        <button class="btn btn-primary" type="submit" >Convert</button>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+      form = document.getElementById('form');
+      form.addEventListener('submit',event => {
+        event.preventDefault();
+
+        selectElement = document.querySelector('#from-select');
+        fromselect = selectElement.value;
+        selectElement = document.querySelector('#to-select');
+        toselect = selectElement.value;
+        temperatureDeg = document.getElementById('fromtemp').value;
+
+        if(fromselect == 'celcius' && toselect == 'reaumur'){
+          reamurTemp = (4/5) * temperatureDeg;
+          document.getElementById('totemp').value = reamurTemp;
+
+        }else if(fromselect == 'celcius' && toselect == 'fahrenheit'){
+          fahrenheitTemp = (9/5) * temperatureDeg + 32;
+          document.getElementById('totemp').value = fahrenheitTemp;
+
+        }else if(fromselect == 'fahrenheit' && toselect == 'celcius'){
+          celciusTemp = (temperatureDeg - 32) * 5/9;
+          document.getElementById('totemp').value = celciusTemp;
+        }else if(fromselect == 'reaumur' && toselect == 'celcius'){
+          celciusTemp = temperatureDeg * 5/4;
+          document.getElementById('totemp').value = celciusTemp;
+        }else if(fromselect == 'reaumur' && toselect == 'fahrenheit'){
+          fahrenheitTemp = temperatureDeg * 9/4 + 32;
+          document.getElementById('totemp').value = fahrenheitTemp;
+        }else if (fromselect == 'fahrenheit' && toselect == 'reaumur'){
+          reamurTemp = (temperatureDeg - 32) * 4/9;
+          document.getElementById('totemp').value = reamurTemp;
+        }else{
+          document.getElementById('totemp').value = temperatureDeg;
+        }
+      });
+        
+      
+    </script>
+    <script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
