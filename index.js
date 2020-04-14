@@ -10,8 +10,8 @@ app.on('ready', () => {
             nodeIntegration: true
         },
         title: 'Temperature Converter',
-        icon: 'temperature.png'
-    
+        icon: 'img/temperature.png'
+
     });
 
     home.loadURL(`file://${__dirname}/index.html`)
