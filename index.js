@@ -2,7 +2,7 @@ const electron = require('electron');
 const {
     app,ipcMain,BrowserWindow,Menu
 } = electron;
-// Menu.setApplicationMenu(false);
+Menu.setApplicationMenu(false);
 let home;
 
 app.on('ready', () => {
@@ -10,10 +10,10 @@ app.on('ready', () => {
         webPreferences: {
             nodeIntegration: true
         },
-        title: 'Temperature Converter',
+        title: 'Temperature Converter 1.1.1',
         icon: 'src/img/temperature.png',
         width: 800,
-        height: 500
+        height: 470
 
     });
 

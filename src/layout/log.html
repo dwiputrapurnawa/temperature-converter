@@ -10,7 +10,7 @@
     <nav class="navbar navbar-light">
         <a class="navbar-brand" href="#">
           <img src="../img/temperature.png" width="30" height="30" class="d-inline-block align-top" alt="">
-          Temp Converter
+          Temperature Converter
         </a>
         <ul class="nav nav-pills" >
           <li class="nav-item">
@@ -43,8 +43,10 @@
             </tbody>
     
           </table>
+          <br>
         </div>
-        
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="delData()">Clear Log</button>
+        <br>
       </div>
       
     
@@ -62,6 +64,11 @@
         appId: "1:910102741571:web:da81d6769f4e45e6e88af6"
       };
       firebase.initializeApp(firebaseConfig);
+
+      function delData(){
+        firebase.database().ref('/').remove()
+        window.location.href = "log.html";
+      }
       
       electron.ipcRenderer.send('request:log')
 
