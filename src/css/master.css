@@ -1,0 +1,7 @@
+.jumbotronHeading{
+    background-image: url('../img/home.jpg');
+    background-size: cover;
+  }
+body{
+    overflow-y: hidden;
+}

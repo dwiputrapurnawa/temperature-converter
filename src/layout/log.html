@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+</head>
+<body>
+  
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="#">
+          <img src="../img/temperature.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          Temp Converter
+        </a>
+        <ul class="nav nav-pills" >
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="convert.html">Convert</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="log.html">Log</a>
+          </li>
+          </ul>
+      </nav>
+      <br>
+      <div class="container-sm">
+        <div class="overflow-auto">
+          <table class="table">
+              
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Temperature</th>
+                <th scope="col">Result</th>
+                <th scope="col">Datetime</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              
+            </tbody>
+    
+          </table>
+        </div>
+        
+      </div>
+      
+    
+    <script type="text/javascript">
+      const firebase = require('firebase')
+      const electron = require('electron')
+
+      var firebaseConfig = {
+        apiKey: "AIzaSyCQkT4BLnfzs-tmAgkrAsG6Qp9XwLneB5g",
+        authDomain: "temperature-converter-1b12f.firebaseapp.com",
+        databaseURL: "https://temperature-converter-1b12f.firebaseio.com",
+        projectId: "temperature-converter-1b12f",
+        storageBucket: "temperature-converter-1b12f.appspot.com",
+        messagingSenderId: "910102741571",
+        appId: "1:910102741571:web:da81d6769f4e45e6e88af6"
+      };
+      firebase.initializeApp(firebaseConfig);
+      
+      electron.ipcRenderer.send('request:log')
+
+      electron.ipcRenderer.on('request:response', event => {
+        firebase.database().ref('/').on('child_added', function(snapshot){
+          var newData = snapshot.val()
+          const tbody = document.getElementById('tbody')
+          const tr = document.createElement('tr')
+          const td_from = document.createElement('td')
+          const td_to = document.createElement('td')
+          const td_temperature = document.createElement('td')
+          const td_result = document.createElement('td')
+          const td_datetime = document.createElement('td')
+
+          td_from.innerHTML = `${newData.From}`
+          td_to.innerHTML = `${newData.To}`
+          td_temperature.innerHTML = `${newData.Temperature}`
+          td_result.innerHTML = `${newData.Result}`
+          td_datetime.innerHTML = `${newData.Datetime}`
+
+          tbody.appendChild(tr)
+          tr.appendChild(td_from)
+          tr.appendChild(td_to)
+          tr.appendChild(td_temperature)
+          tr.appendChild(td_result)
+          tr.appendChild(td_datetime)
+
+        })
+      })
+
+    </script>
+
+    <script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

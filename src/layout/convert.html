@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/master.css">
+    
 </head>
 <body>
   <nav class="navbar navbar-light">
     <a class="navbar-brand" href="#">
-      <img src="img/temperature.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <img src="../img/temperature.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Temp Converter
     </a>
     <ul class="nav nav-pills" >
@@ -18,6 +20,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="convert.html">Convert</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="log.html">Log</a>
       </li>
       </ul>
   </nav>
@@ -53,8 +58,32 @@
         <button class="btn btn-primary" type="submit" >Convert</button>
       </form>
     </div>
-
     <script type="text/javascript">
+    const firebase = require("firebase")
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyCQkT4BLnfzs-tmAgkrAsG6Qp9XwLneB5g",
+        authDomain: "temperature-converter-1b12f.firebaseapp.com",
+        databaseURL: "https://temperature-converter-1b12f.firebaseio.com",
+        projectId: "temperature-converter-1b12f",
+        storageBucket: "temperature-converter-1b12f.appspot.com",
+        messagingSenderId: "910102741571",
+        appId: "1:910102741571:web:da81d6769f4e45e6e88af6"
+      };
+
+    function makeid(length) {
+      var result           = '';
+      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
+
+
+    firebase.initializeApp(firebaseConfig);
+
       form = document.getElementById('form');
       form.addEventListener('submit',event => {
         event.preventDefault();
@@ -69,29 +98,93 @@
           reamurTemp = (4/5) * temperatureDeg;
           document.getElementById('totemp').value = reamurTemp;
 
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: reamurTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+
+
         }else if(fromselect == 'celcius' && toselect == 'fahrenheit'){
           fahrenheitTemp = (9/5) * temperatureDeg + 32;
           document.getElementById('totemp').value = fahrenheitTemp;
 
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: fahrenheitTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+
+
         }else if(fromselect == 'fahrenheit' && toselect == 'celcius'){
           celciusTemp = (temperatureDeg - 32) * 5/9;
           document.getElementById('totemp').value = celciusTemp;
+
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: celciusTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+
         }else if(fromselect == 'reaumur' && toselect == 'celcius'){
           celciusTemp = temperatureDeg * 5/4;
           document.getElementById('totemp').value = celciusTemp;
+
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: celciusTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+
+
         }else if(fromselect == 'reaumur' && toselect == 'fahrenheit'){
           fahrenheitTemp = temperatureDeg * 9/4 + 32;
           document.getElementById('totemp').value = fahrenheitTemp;
+
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: fahrenheitTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+
         }else if (fromselect == 'fahrenheit' && toselect == 'reaumur'){
           reamurTemp = (temperatureDeg - 32) * 4/9;
           document.getElementById('totemp').value = reamurTemp;
+
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: reamurTemp,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
+          
+
         }else{
           document.getElementById('totemp').value = temperatureDeg;
+
+          firebase.database().ref('/' + makeid(10)).set({
+            From: fromselect,
+            To: toselect,
+            Temperature: temperatureDeg,
+            Result: temperatureDeg,
+            Datetime: new Date().toLocaleString().replace(",","").replace(/:.. /," ")
+          })
         }
       });
 
 
     </script>
-    <script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
