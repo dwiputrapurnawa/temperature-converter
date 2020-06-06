@@ -10,7 +10,7 @@ app.on('ready', () => {
         webPreferences: {
             nodeIntegration: true
         },
-        title: 'Temperature Converter 1.1.1',
+        title: 'Temperature Converter',
         icon: 'src/img/temperature.png',
         width: 800,
         height: 470
