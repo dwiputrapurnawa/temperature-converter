@@ -13,7 +13,7 @@ app.on('ready', () => {
         title: 'Temperature Converter',
         icon: 'src/img/temperature.png',
         width: 800,
-        height: 470
+        height: 500
 
     });
 
